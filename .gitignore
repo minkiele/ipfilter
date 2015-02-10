@@ -1,2 +1,5 @@
 *.dat
+composer.phar
+composer.lock
+vendor
 
