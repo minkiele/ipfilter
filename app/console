@@ -1,7 +1,14 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
+$autoloadPath = __DIR__.'/../vendor/autoload.php';
+
+if(file_exists($autoloadPath)){
+    require_once $autoloadPath;
+}else{
+    echo 'Please run install command from a Composer release.' . PHP_EOL . 'End of line.' . PHP_EOL;
+    exit(1);
+}
 
 use Symfony\Component\Console\Application;
 use Minkiele\IpFilter\Command\Convert;
