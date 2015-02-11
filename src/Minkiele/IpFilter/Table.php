@@ -6,11 +6,11 @@ use Minkiele\IpFilter\Document\Saver;
 use Minkiele\IpFilter\Row\Translator;
 
 class Table{
-  
+
   protected $translator;
   protected $rows;
   protected $rawRows;
-  
+
   public function __construct(){
     $this->rows = [];
     $this->rawRows = [];
@@ -29,7 +29,7 @@ class Table{
       }
     }
   }
-  
+
   public function save(Saver $saver, Translator $translator){
     foreach($this->rows as $row){
         $saver->putRow($translator->format($row));
@@ -47,12 +47,12 @@ class Table{
   public function merge(){
     $count = count($this->rows);
     if($count > 0){
-      
+
       $this->sort();
-      
+
       $sets = [];
       $sets[] = array_shift($this->rows);
-      
+
       foreach($this->rows as $row){
         $merged = false;
         foreach($sets as $set){
@@ -66,17 +66,17 @@ class Table{
           $sets[] = $row;
         }
       }
-      
+
       $this->rows = $sets;
       unset($sets);
-      
+
       if(count($this->rows) < $count){
         //There has been a reduction, I can try another round
         $this->merge();
       }
-      
+
     }
-    
+
   }
-  
+
 }
