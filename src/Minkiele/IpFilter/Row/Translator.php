@@ -3,5 +3,6 @@
 namespace Minkiele\IpFilter\Row;
 
 interface Translator {
-	public function translate($input);
+  public function parse($input);
+  public function format(Row $row);
 }
