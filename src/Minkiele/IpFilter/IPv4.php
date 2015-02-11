@@ -15,12 +15,12 @@ class IPv4 implements Comparable {
     }
   }
   
-  private function long(){
+  private function getLong(){
     return $this->long;
   }
   
   public function compare($ip){
-    return $other->long() - $this->long();
+    return $other->getLong() - $this->getLong();
   }
   
   public function equals($ip){
@@ -28,6 +28,6 @@ class IPv4 implements Comparable {
   }
   
   public function __toString(){
-    return long2ip($this->long);
+    return long2ip($this->getLong());
   }
 }

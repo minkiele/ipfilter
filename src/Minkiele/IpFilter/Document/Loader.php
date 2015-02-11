@@ -2,6 +2,6 @@
 
 namespace Minkiele\IpFilter\Document;
 
-interface Saver extends Iterator{
+interface Loader extends Iterator{
 
 }

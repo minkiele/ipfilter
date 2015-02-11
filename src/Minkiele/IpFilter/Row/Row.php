@@ -21,10 +21,26 @@ class Row implements Comparable {
     $this->comment = $comment;
   }
   
+  public function getRangeStart(){
+    return $this->rangeStart;
+  }
+  
+  public function getRangeEnd(){
+    return $this->rangeEnd;
+  }
+  
+  public function getComment(){
+    return $this->getComment;
+  }
+  
+  public function getAccessLevel(){
+    return $this->accessLevel();
+  }
+  
   public function intersects(Row $row){
 
-    return ($row->rangeStart->compare($this->rangeStart) <= 0 && $this->rangeStart->compare($row->rangeEnd) <= 0) ||
-           ($row->rangeStart->compare($this->rangeEnd) <= 0 && $this->rangeEnd->compare($row->rangeEnd) <= 0);
+    return ($row->getRangeStart()->compare($this->getRangeStart()) <= 0 && $this->getRangeStart()->compare($row->getRangeEnd()) <= 0) ||
+           ($row->getRangeStart()->compare($this->getRangeEnd()) <= 0 && $this->getRangeEnd()->compare($row->getRangeEnd()) <= 0);
 
   }
   
@@ -32,14 +48,14 @@ class Row implements Comparable {
 
     if($this->intersects($row)){
       //Overlaps preceeding
-      if($row->rangeStart->compare($this->rangeStart) < 0 && $this->rangeStart->compare($row->rangeEnd) <= 0){
+      if($row->getRangeStart()->compare($this->getRangeStart()) < 0 && $this->getRangeStart()->compare($row->getRangeEnd()) <= 0){
         //Extend start
-        $this->rangeStart = $row->rangeStart;
+        $this->rangeStart = $row->getRangeStart();
       }
       //Overlaps following
-      if($row->rangeStart->compare($this->rangeEnd) <= 0 && $this->rangeEnd->compare($row->rangeEnd) < 0){
+      if($row->getRangeStart()->compare($this->getRangeEnd()) <= 0 && $this->getRangeEnd()->compare($row->getRangeEnd()) < 0){
         //Extend end
-        $this->rangeEnd = $row->rangeEnd;
+        $this->rangeEnd = $row->getRangeEnd();
       }
     }else{
       throw new \Exception('IPs do not intersect');
@@ -48,9 +64,9 @@ class Row implements Comparable {
   
   public function compare($row){
 
-    if($this->rangeStart->compare($row->rangeStart) < 0){
+    if($this->getRangeStart()->compare($row->getRangeStart()) < 0){
       return -1;
-    }else if($this->rangeEnd->compare($row->rangeEnd) > 0){
+    }else if($this->getRangeEnd()->compare($row->getRangeEnd()) > 0){
       return 1;
     }else{
       return 0;
@@ -60,8 +76,8 @@ class Row implements Comparable {
   
   public function equals(Row $row){
   
-    return $this->rangeStart->compare($row->rangeStart) === 0 &&
-           $this->rangeEnd->compare($row->rangeEnd) === 0;
+    return $this->getRangeStart()->compare($row->getRangeStart()) === 0 &&
+           $this->getRangeEnd()->compare($row->getRangeEnd()) === 0;
   }
 
 }
