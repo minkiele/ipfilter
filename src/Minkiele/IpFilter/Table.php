@@ -32,9 +32,8 @@ class Table{
   
   public function save(Saver $saver, Translator $translator){
     foreach($this->rows as $row){
-      $saver->addRow($translator->format($row));
+        $saver->putRow($translator->format($row));
     }
-    $saver->save();
   }
 
   public function sort(){

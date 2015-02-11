@@ -13,7 +13,7 @@ class Translator implements RowTranslator{
 			throw new \Exception('Cannot parse the line');
 		}
 	}
-  
+
     public function format(Row $input){
         throw new \Exception('Method not yet implemented');
     }

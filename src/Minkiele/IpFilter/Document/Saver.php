@@ -3,6 +3,6 @@
 namespace Minkiele\IpFilter\Document;
 
 interface Saver{
-  public function addRow(Row $row);
+  public function putRow($row);
   public function save();
 }

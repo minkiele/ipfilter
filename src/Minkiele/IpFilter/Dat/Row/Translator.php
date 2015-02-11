@@ -9,7 +9,7 @@ class Translator implements RowTranslator{
 	public function parse($input){
         throw new \Exception('Method not yet implemented');
 	}
-  
+
     public function format(Row $input){
 
         $rangeStart = (string)$input->getRangeStart();
