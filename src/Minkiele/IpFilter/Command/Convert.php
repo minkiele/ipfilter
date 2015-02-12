@@ -8,6 +8,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
+use Minkiele\IpFilter\File\Loader;
+use Minkiele\IpFilter\File\Saver;
+use Minkiele\IpFilter\P2P\Row\Translator as P2PTranslator;
+use Minkiele\IpFilter\Dat\Row\Translator as DatTranslator;
+use Minkiele\IpFilter\Table;
+
 class Convert extends Command{
     protected function configure(){
         $this->setName('ipfilter:convert')
@@ -26,6 +32,54 @@ class Convert extends Command{
         $outFormat = $input->getOption('out');
         $outFile = $input->getOption('outfile');
         $optimize = $input->getOption('optimize');
+
+        if(!count($files)){
+            $files = ['php://stdin'];
+        }
+
+        if($outFile === null){
+            $outFile = 'php://stdout';
+        }
+
+        switch($inFormat){
+            case 'p2p':
+                $inTranslator = new P2PTranslator();
+                break;
+            case 'dat':
+                $inTranslator = new DatTranslator();
+                break;
+            default:
+                throw new \Exception('Unrecognized input format');
+                break;
+        }
+
+        switch($outFormat){
+            case 'p2p':
+                $outTranslator = new P2PTranslator();
+                break;
+            case 'dat':
+                $outTranslator = new DatTranslator();
+                break;
+            default:
+                throw new \Exception('Unrecognized input format');
+                break;
+        }
+
+        $saver = new Saver($outFile);
+
+        foreach($files as $fileName){
+            $loader = new Loader($fileName);
+            $table = new Table($loader, $inTranslator);
+
+            if($optimize){
+                $table->merge();
+            }
+
+            $table->save($saver, $outTranslator);
+
+        }
+
+        $saver->save();
 
     }
 

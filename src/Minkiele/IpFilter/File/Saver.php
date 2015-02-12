@@ -11,7 +11,7 @@ class Saver implements DocumentSaver{
       $this->handle = fopen($filename, 'w+');
   }
 
-  public function addRow($row){
+  public function putRow($row){
       fwrite($this->handle, $row . PHP_EOL);
   }
 
