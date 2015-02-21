@@ -10,9 +10,7 @@ if(file_exists($autoloadPath)){
     exit(1);
 }
 
-use Symfony\Component\Console\Application;
-use Minkiele\IpFilter\Command\Convert;
+use Minkiele\IpFilter\Application\IpFilterApplication;
 
-$application = new Application();
-$application->add(new Convert());
-$application->run();
+$app = new IpFilterApplication();
+$app->run();

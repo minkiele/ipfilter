@@ -1,12 +1,14 @@
 <?php
 
-namespace Minkiele\IpFilter\Command;
+namespace Minkiele\IpFilter\Application\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 use Minkiele\IpFilter\File\Loader;
 use Minkiele\IpFilter\File\Saver;
@@ -27,6 +29,8 @@ class Convert extends Command{
 
     protected function execute(InputInterface $input, OutputInterface $output){
 
+        $dispatcher = new EventDispatcher();
+      
         $files = $input->getArgument('files');
         $inFormat = $input->getOption('in');
         $outFormat = $input->getOption('out');
@@ -43,10 +47,10 @@ class Convert extends Command{
 
         switch($inFormat){
             case 'p2p':
-                $inTranslator = new P2PTranslator();
+                $inTranslator = new P2PTranslator($dispatcher);
                 break;
             case 'dat':
-                $inTranslator = new DatTranslator();
+                $inTranslator = new DatTranslator($dispatcher);
                 break;
             default:
                 throw new \Exception('Unrecognized input format');
@@ -55,21 +59,21 @@ class Convert extends Command{
 
         switch($outFormat){
             case 'p2p':
-                $outTranslator = new P2PTranslator();
+                $outTranslator = new P2PTranslator($dispatcher);
                 break;
             case 'dat':
-                $outTranslator = new DatTranslator();
+                $outTranslator = new DatTranslator($dispatcher);
                 break;
             default:
                 throw new \Exception('Unrecognized input format');
                 break;
         }
 
-        $saver = new Saver($outFile);
+        $saver = new Saver($dispatcher, $outFile);
 
         foreach($files as $fileName){
-            $loader = new Loader($fileName);
-            $table = new Table($loader, $inTranslator);
+            $loader = new Loader($dispatcher, $fileName);
+            $table = new Table($dispatcher, $loader, $inTranslator);
 
             if($optimize){
                 $table->merge();

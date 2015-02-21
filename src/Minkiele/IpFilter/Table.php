@@ -5,15 +5,19 @@ use Minkiele\IpFilter\Document\Loader;
 use Minkiele\IpFilter\Document\Saver;
 use Minkiele\IpFilter\Row\Translator;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class Table{
 
   protected $translator;
   protected $rows;
   protected $rawRows;
+  protected $dispatcher;
 
-  public function __construct(){
+  public function __construct(EventDispatcher $dispatcher){
     $this->rows = [];
     $this->rawRows = [];
+    $this->dispatcher = $dispatcher;
   }
 
   public function load(Loader $loader, Translator $translator){

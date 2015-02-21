@@ -2,11 +2,17 @@
 
 namespace Minkiele\Ipfilter;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class IPv4 implements Comparable {
 
   private $long;
+  protected $dispatcher;
 
-  public function __construct($IPv4){
+  public function __construct(EventDispatcher $dispatcher, $IPv4){
+    
+    $this->dispatcher = $dispatcher;
+
     $long = ip2long($IPv4);
     if($long !== false){
       $this->long = $long;

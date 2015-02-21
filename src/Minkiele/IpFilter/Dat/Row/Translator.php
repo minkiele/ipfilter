@@ -5,7 +5,16 @@ use Minkiele\IpFilter\Row\Translator as RowTranslator;
 use Minkiele\IpFilter\Row\Row;
 use Minkiele\IpFilter\IPv4;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class Translator implements RowTranslator{
+  
+    protected $dispatcher;
+
+    public function __construct(EventDispatcher $dispatcher){
+      $this->dispatcher = $dispatcher;
+    }
+  
 	public function parse($input){
         throw new \Exception('Method not yet implemented');
 	}

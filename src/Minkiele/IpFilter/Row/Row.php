@@ -5,6 +5,8 @@ namespace Minkiele\IpFilter\Row;
 use Minkiele\IpFilter\IPv4;
 use Minkiele\IpFilter\Comparable;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class Row implements Comparable {
 
   const ACCESS_LEVEL_DENY = '000';
@@ -13,12 +15,14 @@ class Row implements Comparable {
   private $rangeEnd;
   private $accessLevel;
   private $comment;
+  protected $dispatcher;
 
-  public function __construct(IPv4 $rangeStart, IPv4 $rangeEnd, $comment = '', $accessLevel = self::ACCESS_LEVEL_DENY){
+  public function __construct(EventDispatcher $dispatcher, IPv4 $rangeStart, IPv4 $rangeEnd, $comment = '', $accessLevel = self::ACCESS_LEVEL_DENY){
     $this->rangeStart = $rangeStart;
     $this->rangeEnd = $rangeEnd;
     $this->accessLevel = $accessLevel;
     $this->comment = $comment;
+    $this->dispatcher = $dispatcher;
   }
 
   public function getRangeStart(){

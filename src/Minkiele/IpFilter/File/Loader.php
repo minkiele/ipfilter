@@ -3,6 +3,8 @@
 namespace Minkiele\IpFilter\File;
 use Minkiele\IpFilter\Document\Loader as DocumentLoader;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class Loader implements DocumentLoader{
 
     private $filename;
@@ -10,8 +12,11 @@ class Loader implements DocumentLoader{
     private $dirty;
     private $current;
     private $index;
+  
+    protected $dispatcher;
 
-    public function __construct($filename){
+    public function __construct(EventDispatcher $dispatcher, $filename){
+      $this->dispatcher = $dispatcher;
         $this->filename = $filename;
         $this->load();
     }
