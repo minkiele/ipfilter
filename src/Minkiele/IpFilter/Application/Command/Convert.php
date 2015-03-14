@@ -21,8 +21,8 @@ class Convert extends Command{
         $this->setName('ipfilter:convert')
              ->setDescription('Convert a list from a format to another')
              ->addArgument('files', InputArgument::IS_ARRAY, 'Files to add')
-             ->addOption('in', null, InputOption::VALUE_OPTIONAL, 'The input file format', 'p2p')
-             ->addOption('out', null, InputOption::VALUE_OPTIONAL, 'The output format', 'dat')
+             ->addOption('intype', null, InputOption::VALUE_OPTIONAL, 'The input file format', 'p2p')
+             ->addOption('outtype', null, InputOption::VALUE_OPTIONAL, 'The output format', 'dat')
              ->addOption('outfile', 'o', InputOption::VALUE_REQUIRED, 'The output file to write')
              ->addOption('optimize', 'm', InputOption::VALUE_NONE, 'Try to optimize the ip list');
     }
@@ -32,8 +32,8 @@ class Convert extends Command{
         $dispatcher = new EventDispatcher();
       
         $files = $input->getArgument('files');
-        $inFormat = $input->getOption('in');
-        $outFormat = $input->getOption('out');
+        $inFormat = $input->getOption('intype');
+        $outFormat = $input->getOption('outtype');
         $outFile = $input->getOption('outfile');
         $optimize = $input->getOption('optimize');
 
