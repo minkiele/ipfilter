@@ -27,7 +27,7 @@ class Translator implements RowTranslator{
         $rangeStartArr = array_map('intval', explode('.', $rangeStart));
         $rangeEndArr = array_map('intval', explode('.', $rangeEnd));
 
-        $data = array_merge($rangeStartArr, $rangeEndArr, $input->getAccessLevel(), $input->getComment());
+        $data = array_merge($rangeStartArr, $rangeEndArr, array($input->getAccessLevel(), $input->getComment()));
 
         if(count($data) !== 8){
             return vsprintf('%03s.%03s.%03s.%03s - %03s.%03s.%03s.%03s , %s , %s', $data);

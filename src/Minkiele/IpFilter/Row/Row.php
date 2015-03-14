@@ -34,11 +34,11 @@ class Row implements Comparable {
   }
 
   public function getComment(){
-    return $this->getComment;
+    return $this->comment;
   }
 
   public function getAccessLevel(){
-    return $this->accessLevel();
+    return $this->accessLevel;
   }
 
   public function intersects(Row $row){
@@ -78,7 +78,7 @@ class Row implements Comparable {
 
   }
 
-  public function equals(Row $row){
+  public function equals($row){
 
     return $this->getRangeStart()->compare($row->getRangeStart()) === 0 &&
            $this->getRangeEnd()->compare($row->getRangeEnd()) === 0;

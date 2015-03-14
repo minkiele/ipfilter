@@ -1,11 +1,11 @@
 <?php
 
 namespace Minkiele\IpFilter\File;
-use Minkiele\IpFilter\Document\Saver as DocumentSaver;
+use Minkiele\IpFilter\Document\Writer as DocumentWriter;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class Saver implements DocumentSaver{
+class Writer implements DocumentWriter{
 
   private $handle;
   

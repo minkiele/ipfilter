@@ -1,11 +1,11 @@
 <?php
 
 namespace Minkiele\IpFilter\File;
-use Minkiele\IpFilter\Document\Loader as DocumentLoader;
+use Minkiele\IpFilter\Document\Reader as DocumentReader;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class Loader implements DocumentLoader{
+class Reader implements DocumentReader{
 
     private $filename;
     private $handle;
@@ -25,8 +25,8 @@ class Loader implements DocumentLoader{
         if(!$this->dirty){
             $this->current = fgets($this->handle);
             $this->dirty = true;
-            return $this->current;
         }
+        return $this->current;
     }
 
     public function key() {

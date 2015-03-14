@@ -1,8 +1,8 @@
 <?php
 
 namespace Minkiele\IpFilter;
-use Minkiele\IpFilter\Document\Loader;
-use Minkiele\IpFilter\Document\Saver;
+use Minkiele\IpFilter\Document\Reader;
+use Minkiele\IpFilter\Document\Writer;
 use Minkiele\IpFilter\Row\Translator;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -20,12 +20,11 @@ class Table{
     $this->dispatcher = $dispatcher;
   }
 
-  public function load(Loader $loader, Translator $translator){
+  public function load(Reader $reader, Translator $translator){
 
     $this->rows = [];
     $this->rawRows = [];
-
-    foreach($loader as $line){
+    foreach($reader as $line){
       try{
         $this->rows[] = $translator->parse($line);
       }catch(\Exception $exc){
@@ -34,16 +33,16 @@ class Table{
     }
   }
 
-  public function save(Saver $saver, Translator $translator){
+  public function save(Writer $writer, Translator $translator){
     foreach($this->rows as $row){
-        $saver->putRow($translator->format($row));
+        $writer->putRow($translator->format($row));
     }
   }
 
   public function sort(){
 
     usort($this->rows, function($rowA, $rowB){
-      return $rowA->cmp($rowB);
+      return $rowA->compare($rowB);
     });
 
   }

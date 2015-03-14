@@ -10,8 +10,8 @@ use Symfony\Component\Console\Input\InputOption;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-use Minkiele\IpFilter\File\Loader;
-use Minkiele\IpFilter\File\Saver;
+use Minkiele\IpFilter\File\Reader;
+use Minkiele\IpFilter\File\Writer;
 use Minkiele\IpFilter\P2P\Row\Translator as P2PTranslator;
 use Minkiele\IpFilter\Dat\Row\Translator as DatTranslator;
 use Minkiele\IpFilter\Table;
@@ -69,21 +69,23 @@ class Convert extends Command{
                 break;
         }
 
-        $saver = new Saver($dispatcher, $outFile);
+        $writer = new Writer($dispatcher, $outFile);
 
         foreach($files as $fileName){
-            $loader = new Loader($dispatcher, $fileName);
-            $table = new Table($dispatcher, $loader, $inTranslator);
+            $reader = new Reader($dispatcher, $fileName);
+            $table = new Table($dispatcher);
 
+            $table->load($reader, $inTranslator);
+          
             if($optimize){
                 $table->merge();
             }
 
-            $table->save($saver, $outTranslator);
+            $table->save($writer, $outTranslator);
 
         }
 
-        $saver->save();
+        $writer->save();
 
     }
 

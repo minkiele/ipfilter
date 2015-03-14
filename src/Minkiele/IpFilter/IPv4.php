@@ -25,7 +25,7 @@ class IPv4 implements Comparable {
     return $this->long;
   }
 
-  public function compare($ip){
+  public function compare($other){
     return $other->getLong() - $this->getLong();
   }
 

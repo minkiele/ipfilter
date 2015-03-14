@@ -2,7 +2,7 @@
 
 namespace Minkiele\IpFilter\Document;
 
-interface Saver{
+interface Writer{
   public function putRow($row);
   public function save();
 }
