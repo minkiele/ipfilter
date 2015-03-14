@@ -4,5 +4,5 @@ namespace Minkiele\IpFilter\Document;
 
 interface Writer{
   public function putRow($row);
-  public function save();
+  public function write();
 }

@@ -75,17 +75,17 @@ class Convert extends Command{
             $reader = new Reader($dispatcher, $fileName);
             $table = new Table($dispatcher);
 
-            $table->load($reader, $inTranslator);
+            $table->read($reader, $inTranslator);
           
             if($optimize){
                 $table->merge();
             }
 
-            $table->save($writer, $outTranslator);
+            $table->write($writer, $outTranslator);
 
         }
 
-        $writer->save();
+        $writer->write();
 
     }
 

@@ -20,13 +20,13 @@ class Writer implements DocumentWriter{
       fwrite($this->handle, $row . PHP_EOL);
   }
 
-  public function save(){
+  public function write(){
       fclose($this->handle);
   }
 
   public function __destruct(){
       if(is_resource($this->handle)){
-          $this->save();
+          $this->write();
       }
   }
 }

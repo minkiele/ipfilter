@@ -18,7 +18,7 @@ class Reader implements DocumentReader{
     public function __construct(EventDispatcher $dispatcher, $filename){
       $this->dispatcher = $dispatcher;
         $this->filename = $filename;
-        $this->load();
+        $this->read();
     }
 
     public function current() {
@@ -55,7 +55,7 @@ class Reader implements DocumentReader{
         }
     }
 
-    public function load(){
+    public function read(){
         $this->handle = fopen($this->filename, 'r');
     }
 

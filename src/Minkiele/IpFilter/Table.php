@@ -20,7 +20,7 @@ class Table{
     $this->dispatcher = $dispatcher;
   }
 
-  public function load(Reader $reader, Translator $translator){
+  public function read(Reader $reader, Translator $translator){
 
     $this->rows = [];
     $this->rawRows = [];
@@ -33,7 +33,7 @@ class Table{
     }
   }
 
-  public function save(Writer $writer, Translator $translator){
+  public function write(Writer $writer, Translator $translator){
     foreach($this->rows as $row){
         $writer->putRow($translator->format($row));
     }

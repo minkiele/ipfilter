@@ -3,6 +3,6 @@
 namespace Minkiele\IpFilter\Document;
 
 interface Reader extends \Iterator{
-    public function load();
+    public function read();
     public function getRow();
 }
