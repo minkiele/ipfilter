@@ -1,4 +1,5 @@
 *.dat
+*.p2p
 
 composer.phar
 vendor/
